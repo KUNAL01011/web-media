@@ -18,7 +18,7 @@ const CreatePost = () => {
 				const res = await fetch('/api/posts/create',{
 					method:"POST",
 					headers:{
-						"Content-Type":"application/json",
+						"Content-Type": "application/json",
 					},
 					body:JSON.stringify({text,img}),
 				});
