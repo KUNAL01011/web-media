@@ -4,12 +4,53 @@ import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
+// export const createPost = async (req, res) => {
+//   try {
+//     const { text } = req.body;
+//     console.log(text);
+//     const avatarLocalPath = req.files?.img[0]?.path;
+//     console.log(avatarLocalPath);
+
+//     const userId = req.user._id.toString();
+
+//     const user = await User.findById(userId);
+
+//     if (!user) return res.status(404).json({ message: "User not found" });
+
+//     if (!text) {
+//       return res.status(400).json({ error: "Post must have text or image" });
+//     }
+//     if (!avatarLocalPath) {
+//       console.log("hlllll")
+//       return res.status(400).json({ error: "Post must have text or image" });
+//     }
+
+//     const img = await uploadOnCloudinary(avatarLocalPath);
+
+//     if (!img) {
+//       return res.status(400).json({ error: "Post must have text or image" });
+//     }
+//     const newPost = new Post({
+//       user: userId,
+//       text,
+//       img,
+//     });
+
+//     await newPost.save();
+//     res.status(201).json(newPost);
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal server error" });
+//     console.log("Error in createPost controller: ", error);
+//   }
+// };
+
 export const createPost = async (req, res) => {
   try {
     const { text } = req.body;
-    console.log(text);
-    const avatarLocalPath = req.files?.img[0]?.path;
-    console.log(avatarLocalPath);
+    console.log("Text:", text);
+
+    const avatarLocalPath = req.file?.path; // Assuming `img` is the field name for the image file
+    console.log("Avatar Local Path:", avatarLocalPath);
 
     const userId = req.user._id.toString();
 
@@ -17,19 +58,18 @@ export const createPost = async (req, res) => {
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    if (!text) {
-      return res.status(400).json({ error: "Post must have text or image" });
-    }
-    if (!avatarLocalPath) {
-      console.log("hlllll")
+    if (!text && !avatarLocalPath) {
       return res.status(400).json({ error: "Post must have text or image" });
     }
 
-    const img = await uploadOnCloudinary(avatarLocalPath);
-
-    if (!img) {
-      return res.status(400).json({ error: "Post must have text or image" });
+    let img = null;
+    if (avatarLocalPath) {
+      img = await uploadOnCloudinary(avatarLocalPath);
+      if (!img) {
+        return res.status(400).json({ error: "Image upload failed" });
+      }
     }
+
     const newPost = new Post({
       user: userId,
       text,
