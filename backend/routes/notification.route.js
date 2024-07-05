@@ -1,9 +1,10 @@
-import express from 'express';
-import { deleteNotifications, getNotifications } from '../controllers/notification.controller.js';
-import { protectRoute } from '../middleware/protectRoute.js';
-const notificationRouter = express.Router();
+import express from "express";
+import { protectRoute } from "../middleware/protectRoute.js";
+import { deleteNotifications, getNotifications } from "../controllers/notification.controller.js";
 
-notificationRouter.get("/",protectRoute,getNotifications);
-notificationRouter.delete('/',protectRoute,deleteNotifications);
-// notificationRouter.delete('/:id',protectRoute,deleteNotification);
-export default notificationRouter;
+const router = express.Router();
+
+router.get("/", protectRoute, getNotifications);
+router.delete("/", protectRoute, deleteNotifications);
+
+export default router;
