@@ -7,9 +7,9 @@ import { v2 as cloudinary } from "cloudinary";
 export const createPost = async (req, res) => {
   try {
     const { text } = req.body;
-	console.log(text)
+    console.log(text);
     const avatarLocalPath = req.files?.img[0]?.path;
-	console.log(avatarLocalPath)
+    console.log(avatarLocalPath);
 
     const userId = req.user._id.toString();
 
@@ -21,11 +21,12 @@ export const createPost = async (req, res) => {
       return res.status(400).json({ error: "Post must have text or image" });
     }
     if (!avatarLocalPath) {
+      console.log("hlllll")
       return res.status(400).json({ error: "Post must have text or image" });
     }
 
     const img = await uploadOnCloudinary(avatarLocalPath);
-	
+
     if (!img) {
       return res.status(400).json({ error: "Post must have text or image" });
     }
