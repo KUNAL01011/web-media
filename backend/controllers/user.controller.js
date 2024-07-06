@@ -98,9 +98,16 @@ export const updateUser = async (req, res) => {
   let profileImg;
   let coverImg;
   
-  const avatarLocalPath = req.files?.profileImg[0]?.path;
-  let coverImageLocalPath = req.files?.coverImg[0]?.path;
-  
+  let avatarLocalPath;
+  let coverImageLocalPath;
+
+  if(req.files?.profileImg){
+    avatarLocalPath = req.files?.profileImg[0]?.path;
+  }
+  if(req.files?.coverImg){
+    coverImageLocalPath = req.files?.coverImg[0]?.path
+  }
+
   const userId = req.user._id;
 
   try {
@@ -150,7 +157,7 @@ export const updateUser = async (req, res) => {
           user.coverImg.split("/").pop().split(".")[0]
         );
       }
-
+      
       const uploadedResponse = await uploadOnCloudinary(coverImageLocalPath);
       coverImg = uploadedResponse;
     }
