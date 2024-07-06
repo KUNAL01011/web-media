@@ -4,53 +4,12 @@ import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
-// export const createPost = async (req, res) => {
-//   try {
-//     const { text } = req.body;
-//     console.log(text);
-//     const avatarLocalPath = req.files?.img[0]?.path;
-//     console.log(avatarLocalPath);
-
-//     const userId = req.user._id.toString();
-
-//     const user = await User.findById(userId);
-
-//     if (!user) return res.status(404).json({ message: "User not found" });
-
-//     if (!text) {
-//       return res.status(400).json({ error: "Post must have text or image" });
-//     }
-//     if (!avatarLocalPath) {
-//       console.log("hlllll")
-//       return res.status(400).json({ error: "Post must have text or image" });
-//     }
-
-//     const img = await uploadOnCloudinary(avatarLocalPath);
-
-//     if (!img) {
-//       return res.status(400).json({ error: "Post must have text or image" });
-//     }
-//     const newPost = new Post({
-//       user: userId,
-//       text,
-//       img,
-//     });
-
-//     await newPost.save();
-//     res.status(201).json(newPost);
-//   } catch (error) {
-//     res.status(500).json({ error: "Internal server error" });
-//     console.log("Error in createPost controller: ", error);
-//   }
-// };
 
 export const createPost = async (req, res) => {
   try {
     const { text } = req.body;
-    console.log("Text:", text);
 
-    const avatarLocalPath = req.file?.path; // Assuming `img` is the field name for the image file
-    console.log("Avatar Local Path:", avatarLocalPath);
+    const avatarLocalPath = req.file?.path;
 
     const userId = req.user._id.toString();
 
@@ -80,7 +39,6 @@ export const createPost = async (req, res) => {
     res.status(201).json(newPost);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
-    console.log("Error in createPost controller: ", error);
   }
 };
 
@@ -106,7 +64,6 @@ export const deletePost = async (req, res) => {
 
     res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {
-    console.log("Error in deletePost controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -133,7 +90,6 @@ export const commentOnPost = async (req, res) => {
 
     res.status(200).json(post);
   } catch (error) {
-    console.log("Error in commentOnPost controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -177,7 +133,6 @@ export const likeUnlikePost = async (req, res) => {
       res.status(200).json(updatedLikes);
     }
   } catch (error) {
-    console.log("Error in likeUnlikePost controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -201,7 +156,6 @@ export const getAllPosts = async (req, res) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    console.log("Error in getAllPosts controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -225,7 +179,6 @@ export const getLikedPosts = async (req, res) => {
 
     res.status(200).json(likedPosts);
   } catch (error) {
-    console.log("Error in getLikedPosts controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -251,7 +204,6 @@ export const getFollowingPosts = async (req, res) => {
 
     res.status(200).json(feedPosts);
   } catch (error) {
-    console.log("Error in getFollowingPosts controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -276,7 +228,6 @@ export const getUserPosts = async (req, res) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    console.log("Error in getUserPosts controller: ", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
