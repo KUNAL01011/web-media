@@ -1,4 +1,5 @@
-# MERN Stack Project: Build and Deploy a Twitter Clone From Scratch | JWT, Socket.io
+# MERN Stack Project: Build and Deploy a social media Clone From Scratch | JWT, Socket.io
+![Screenshot (422)](https://github.com/user-attachments/assets/b424e5dc-a270-49a1-a8b2-f150daa74ca2)
 
 Some Features:
 
@@ -17,6 +18,12 @@ Some Features:
 -   🔔 Send Notifications
 -   🌐 Deployment
 -   ⏳ And much more!
+
+### Clone the project
+
+```shell
+git clone https://github.com/KUNAL01011/web-media.git
+```
 
 ### Setup .env file
 
